@@ -1,0 +1,32 @@
+function MessageBubble({ message, currentUsername }) {
+  const isOwnMessage = message.username === currentUsername;
+
+  const formattedTime = new Date(
+    message.timestamp.replace(" ", "T") + "Z"
+  ).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  return (
+    <div className={`message-row ${isOwnMessage ? "own" : "other"}`}>
+      <div className="message-bubble">
+        {!isOwnMessage && (
+          <div className="message-username">
+            {message.username}
+          </div>
+        )}
+
+        <div className="message-text">
+          {message.message}
+        </div>
+
+        <div className="message-time">
+          {formattedTime}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default MessageBubble;
